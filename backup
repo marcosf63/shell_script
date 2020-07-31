@@ -1,0 +1,19 @@
+#!/bin/bash
+
+if [ ! -d "/temp/backup" ]; then
+  echo "Criando a pasta de backup que nao exite"
+  mkdir /tmp/backup
+fi
+
+# Criando o arquivo de backup da pasta etc
+tar -czpf /tmp/backup/etc.tar.gz /etc
+
+# Testando o backup
+if [ -f /tmp/backup/etc.tar.gz ]; then
+  tar -tzf /tmp/backup/etc.tar.gz > /dev/null
+  if [ "$?" != "0" ]; then
+    echo "Verificacao do backup falhou"
+    exit 1
+  fi
+fi
+echo "Backup chegou ao final"
